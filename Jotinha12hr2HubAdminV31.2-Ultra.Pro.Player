@@ -1,0 +1,50 @@
+--[[ Jotinha12hr2 V31 Master ]]--
+repeat task.wait() until game:IsLoaded()
+local _0xW = "URL_DO_WEBHOOK_AQUI" 
+local _0xP, _0xL = game:GetService("Players"), game:GetService("Players").LocalPlayer
+local _0xR, _0xH = game:GetService("RunService"), game:GetService("HttpService")
+if not _G.JotaNet then _G.JotaNet = {} end
+local function _0xLG(_0xM)
+task.spawn(function() if _0xW=="https://discord.com/api/webhooks/1457780083124207626/F0AR-Na0rucf2CncuNsXC4yGRYC-Kpjg1XkOdb6YaHgDcOZlVhwym4KwhriXSYaBeZSj" then return end
+local _0xReq = (syn and syn.request) or (http and http.request) or http_request or request
+if _0xReq then pcall(function() _0xReq({Url=_0xW,Method="POST",Headers={["Content-Type"]="application/json"},Body=_0xH:JSONEncode({embeds={{title="Jotinha V31 Log",description=_0xM,fields={{name="JobId",value="```"..game.JobId.."```"},{name="PlaceId",value=tostring(game.PlaceId)}},color=16768768}}})}) end) end end) end
+task.spawn(function() while task.wait(0.2) do for t, d in pairs(_G.JotaNet) do if (t==_0xL.Name or t=="all") and d.F~=_0xL.Name then local c=d.D:lower() local ch=_0xL.Character if ch and ch:FindFirstChild("Humanoid") then if c=="kill" then ch.Humanoid.Health=0 elseif c=="freeze" then ch.HumanoidRootPart.Anchored=true elseif c=="unfreeze" then ch.HumanoidRootPart.Anchored=false elseif c=="void" then ch.HumanoidRootPart.CFrame=CFrame.new(0,-999,0) elseif c=="kick" then _0xL:Kick("Admin Control") elseif c=="control" then _G.Controlling=d.F elseif c=="uncontrol" then _G.Controlling=nil end end _G.JotaNet[t]=nil end end if _G.Controlling then local m=_0xP:FindFirstChild(_G.Controlling) if m and m.Character and _0xL.Character then _0xL.Character.Humanoid:Move(m.Character.Humanoid.MoveDirection, false) if m.Character.Humanoid.Jump then _0xL.Character.Humanoid.Jump=true end end end end end)
+local _0xG = Instance.new("ScreenGui", (game:GetService("CoreGui") or _0xL.PlayerGui))
+_0xG.Name = "JH_V31"
+local _0xB = Instance.new("TextButton", _0xG)
+_0xB.Size, _0xB.Position, _0xB.BackgroundColor3, _0xB.Text, _0xB.Font, _0xB.TextSize = UDim2.new(0,50,0,50), UDim2.new(0,10,0.5,-25), Color3.fromRGB(15,15,15), "JH", 3, 22
+Instance.new("UICorner", _0xB).CornerRadius = UDim.new(1,0)
+local _0xS = Instance.new("UIStroke", _0xB) _0xS.Thickness = 3
+_0xR.RenderStepped:Connect(function() _0xS.Color = Color3.fromHSV(tick()%5/5,0.8,1) _0xB.TextColor3 = _0xS.Color end)
+local _0xM = Instance.new("Frame", _0xG)
+_0xM.Size, _0xM.Position, _0xM.BackgroundColor3, _0xM.Visible, _0xM.Active, _0xM.Draggable = UDim2.new(0,260,0,400), UDim2.new(0.5,-130,0.5,-200), Color3.fromRGB(10,10,10), false, true, true
+Instance.new("UICorner", _0xM)
+_0xB.MouseButton1Click:Connect(function() _0xM.Visible = not _0xM.Visible end)
+local _0xIn = Instance.new("TextBox", _0xM)
+_0xIn.Size, _0xIn.Position, _0xIn.PlaceholderText, _0xIn.BackgroundColor3, _0xIn.TextColor3 = UDim2.new(0,220,0,35), UDim2.new(0.5,-110,0,45), "NICK DO ALVO", Color3.fromRGB(30,30,30), Color3.new(1,1,1)
+Instance.new("UICorner", _0xIn)
+local _0xSc = Instance.new("ScrollingFrame", _0xM)
+_0xSc.Size, _0xSc.Position, _0xSc.BackgroundTransparency, _0xSc.CanvasSize = UDim2.new(1,-10,1,-100), UDim2.new(0,5,0,95), 1, UDim2.new(0,0,6,0)
+Instance.new("UIListLayout", _0xSc).HorizontalAlignment = 1
+local _0xCp = Instance.new("TextButton", _0xSc)
+_0xCp.Size, _0xCp.Text, _0xCp.BackgroundColor3, _0xCp.TextColor3 = UDim2.new(0,210,0,35), "COPY JOBID", Color3.fromRGB(0,80,0), Color3.new(1,1,1)
+Instance.new("UICorner", _0xCp) _0xCp.MouseButton1Click:Connect(function() setclipboard(tostring(game.JobId)) end)
+local _0xLst = {"Kill","Void","Freeze","Unfreeze","Jump","Sit","Kick","Spin","Unspin","Blind","Jail","Unjail","Bring","Fling","Infect","View","Unview","Control","Uncontrol"}
+for _, n in pairs(_0xLst) do
+local b = Instance.new("TextButton", _0xSc)
+b.Size, b.Text, b.BackgroundColor3, b.TextColor3 = UDim2.new(0,210,0,35), "SHADOW "..n:upper(), Color3.fromRGB(25,25,25), Color3.fromRGB(255,215,0)
+Instance.new("UICorner", b)
+b.MouseButton1Click:Connect(function()
+local t = _0xIn.Text
+if n=="View" then local p=_0xP:FindFirstChild(t) if p and p.Character then workspace.CurrentCamera.CameraSubject=p.Character.Humanoid end
+elseif n=="Unview" then workspace.CurrentCamera.CameraSubject=_0xL.Character.Humanoid
+else _G.JotaNet[t]={D=n,F=_0xL.Name} end _0xLG("Sinal: "..n.." para "..t) end) end
+local function _0xTg(c)
+local h = c:WaitForChild("Head", 10)
+local bg = Instance.new("BillboardGui", h) bg.Size, bg.AlwaysOnTop, bg.ExtentsOffset = UDim2.new(0,160,0,45), true, Vector3.new(0,3,0)
+local tx = Instance.new("TextLabel", bg) tx.Size, tx.BackgroundTransparency, tx.Font, tx.TextSize = UDim2.new(1,0,1,0), 1, 3, 22
+tx.Text = (_0xL.Name=="jotinha12hr2" and "[DONO] " or "[USER] ").._0xL.DisplayName
+_0xR.RenderStepped:Connect(function() tx.TextColor3 = Color3.fromHSV(tick()%5/5,0.8,1) end) end
+_0xL.CharacterAdded:Connect(_0xTg) if _0xL.Character then _0xTg(_0xL.Character) end
+_0xLG("✅ Jotinha V31 Master Online")
+
