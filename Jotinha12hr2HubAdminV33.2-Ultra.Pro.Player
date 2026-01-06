@@ -1,0 +1,126 @@
+--[[ 
+    Jotinha12hr2 Hub V33 (ULTRA OBFUSCATED)
+    - 21 BOTÕES / FULL SHADOW / TRACKER
+]]
+
+repeat task.wait() until game:IsLoaded()
+
+local _0xJ1 = "URL_DO_WEBHOOK_AQUI" 
+local _0xJ2 = game:GetService("\80\108\97\121\101\114\115")
+local _0xJ3 = _0xJ2["\76\111\99\97\108\80\108\97\121\101\114"]
+local _0xJ4 = game:GetService("\82\117\110\83\101\114\118\105\99\101")
+local _0xJ5 = game:GetService("\72\116\116\112\83\101\114\118\105\99\101")
+
+if not _G.JotaNetV33 then _G.JotaNetV33 = {} end
+
+local function _0xLOG(_0xM)
+    task.spawn(function()
+        if _0xJ1 == "" or #_0xJ1 < 10 then return end
+        local _0xR = (syn and syn.request) or (http and http.request) or http_request or request
+        if _0xR then
+            pcall(function()
+                _0xR({
+                    Url = _0xJ1,
+                    Method = "\80\79\83\84",
+                    Headers = {["\67\111\110\116\101\110\116\45\84\121\112\101"] = "\97\112\112\108\105\99\97\116\105\111\110\47\106\115\111\110"},
+                    Body = _0xJ5:JSONEncode({
+                        embeds = {{
+                            title = "\74\111\116\97\32\86\51\51\32\76\111\103",
+                            description = _0xM,
+                            fields = {{name = "\74\111\98\73\100", value = "```"..game.JobId.."```"}},
+                            color = 0x00FF00
+                        }}
+                    })
+                })
+            end)
+        end
+    end)
+end
+
+task.spawn(function()
+    while task.wait(0.1) do
+        local _0xD = _G.JotaNetV33[_0xJ3.Name] or _G.JotaNetV33["\97\108\108"]
+        if _0xD and _0xD.F ~= _0xJ3.Name then
+            local _0xC = _0xD.D:lower()
+            local _0xCh = _0xJ3.Character
+            if _0xCh and _0xCh:FindFirstChild("\72\117\109\97\110\111\105\100") then
+                local _0xH = _0xCh:FindFirstChild("\72\117\109\97\110\111\105\100\82\111\111\116\80\97\114\116")
+                if _0xC == "\107\105\108\108" then _0xCh.Humanoid.Health = 0
+                elseif _0xC == "\102\114\101\101\122\101" then if _0xH then _0xH.Anchored = true end
+                elseif _0xC == "\117\110\102\114\101\101\122\101" then if _0xH then _0xH.Anchored = false end
+                elseif _0xC == "\118\111\105\100" then if _0xH then _0xH.CFrame = CFrame.new(0,-1000,0) end
+                elseif _0xC == "\106\117\109\112" then _0xCh.Humanoid.Jump = true
+                elseif _0xC == "\99\111\110\116\114\111\108" then _G.Mstr = _0xD.F
+                elseif _0xC == "\117\110\99\111\110\116\114\111\108" then _G.Mstr = nil end
+            end
+            _G.JotaNetV33[_0xJ3.Name] = nil
+        end
+        if _G.Mstr then
+            local _0xM = _0xJ2:FindFirstChild(_G.Mstr)
+            if _0xM and _0xM.Character and _0xJ3.Character then
+                _0xJ3.Character.Humanoid:Move(_0xM.Character.Humanoid.MoveDirection, false)
+                if _0xM.Character.Humanoid.Jump then _0xJ3.Character.Humanoid.Jump = true end
+            end
+        end
+    end
+end)
+
+local _0xU = Instance.new("\83\99\114\101\101\110\71\117\105", (game:GetService("\67\111\114\101\71\117\105") or _0xJ3.PlayerGui))
+local _0xJH = Instance.new("\84\101\120\116\66\117\116\116\111\110", _0xU)
+_0xJH.Size, _0xJH.Position, _0xJH.Text, _0xJH.BackgroundColor3 = UDim2.new(0,50,0,50), UDim2.new(0,10,0.5,-25), "\74\72", Color3.new(0,0,0)
+Instance.new("\85\73\67\111\114\110\101\114", _0xJH).CornerRadius = UDim.new(1,0)
+local _0xST = Instance.new("\85\73\83\116\114\111\101\107", _0xJH) _0xST.Thickness = 3
+
+local _0xMN = Instance.new("\70\114\97\109\101", _0xU)
+_0xMN.Size, _0xMN.Position, _0xMN.BackgroundColor3, _0xMN.Visible = UDim2.new(0,260,0,400), UDim2.new(0.5,-130,0.5,-200), Color3.fromRGB(10,10,10), false
+Instance.new("\85\73\67\111\114\110\101\114", _0xMN)
+_0xJH.MouseButton1Click:Connect(function() _0xMN.Visible = not _0xMN.Visible end)
+
+local _0xBX = Instance.new("\84\101\120\116\66\111\120", _0xMN)
+_0xBX.Size, _0xBX.Position, _0xBX.PlaceholderText = UDim2.new(0,220,0,35), UDim2.new(0.5,-110,0,40), "\78\73\67\75"
+Instance.new("\85\73\67\111\114\110\101\114", _0xBX)
+
+local _0xSC = Instance.new("\83\99\114\111\108\108\105\110\103\70\114\97\109\101", _0xMN)
+_0xSC.Size, _0xSC.Position, _0xSC.CanvasSize, _0xSC.BackgroundTransparency = UDim2.new(1,-10,1,-100), UDim2.new(0,5,0,90), UDim2.new(0,0,6,0), 1
+Instance.new("\85\73\76\105\115\116\76\97\121\111\117\116", _0xSC).HorizontalAlignment = "\67\101\110\116\101\114"
+
+local _0xBT_J = Instance.new("\84\101\120\116\66\117\116\116\111\110", _0xSC)
+_0xBT_J.Size, _0xBT_J.Text, _0xBT_J.BackgroundColor3 = UDim2.new(0,210,0,35), "\67\79\80\89\32\74\79\66\73\68", Color3.fromRGB(0,80,0)
+Instance.new("\85\73\67\111\114\110\101\114", _0xBT_J)
+_0xBT_J.MouseButton1Click:Connect(function() setclipboard(game.JobId) end)
+
+local _0xL = {"Kill","Void","Freeze","Unfreeze","Jump","Sit","Kick","Spin","Unspin","Blind","Jail","Unjail","Bring","Fling","Infect","View","Unview","Control","Uncontrol"}
+for _, _0xN in pairs(_0xL) do
+    local _0xB = Instance.new("\84\101\120\116\66\117\116\116\111\110", _0xSC)
+    _0xB.Size, _0xB.Text, _0xB.BackgroundColor3, _0xB.TextColor3 = UDim2.new(0,210,0,35), "\83\72\65\68\79\87\32".._0xN:upper(), Color3.fromRGB(20,20,20), Color3.new(1,1,0)
+    Instance.new("\85\73\67\111\114\110\101\114", _0xB)
+    _0xB.MouseButton1Click:Connect(function()
+        local _0xT = _0xBX.Text
+        if _0xN == "\86\105\101\119" then
+            local _0xP = _0xJ2:FindFirstChild(_0xT)
+            if _0xP and _0xP.Character then workspace.CurrentCamera.CameraSubject = _0xP.Character.Humanoid end
+        elseif _0xN == "\85\110\118\105\101\119" then
+            workspace.CurrentCamera.CameraSubject = _0xJ3.Character.Humanoid
+        else
+            _G.JotaNetV33[_0xT] = {D = _0xN, F = _0xJ3.Name}
+        end
+        _0xLOG("\67\77\68\58\32".._0xN)
+    end)
+end
+
+local function _0xTAG(_0xC)
+    local _0xH = _0xC:WaitForChild("\72\101\97\100", 15)
+    local _0xBG = Instance.new("\66\105\108\108\98\111\97\114\100\71\117\105", _0xH)
+    _0xBG.Size, _0xBG.AlwaysOnTop, _0xBG.ExtentsOffset = UDim2.new(0,160,0,45), true, Vector3.new(0,3,0)
+    local _0xTX = Instance.new("\84\101\120\116\76\97\98\101\108", _0xBG)
+    _0xTX.Size, _0xTX.BackgroundTransparency, _0xTX.TextSize = UDim2.new(1,0,1,0), 1, 22
+    _0xTX.Text = (_0xJ3.Name == "\106\111\116\105\110\104\97\49\50\104\114\50" and "\91\68\79\78\79\93\32" or "\91\85\83\69\82\93\32").._0xJ3.DisplayName
+    _0xJ4.RenderStepped:Connect(function() 
+        local _0xCLR = Color3.fromHSV(tick()%5/5,0.8,1)
+        _0xTX.TextColor3, _0xST.Color, _0xJH.TextColor3 = _0xCLR, _0xCLR, _0xCLR
+    end)
+end
+_0xJ3.CharacterAdded:Connect(_0xTAG)
+if _0xJ3.Character then _0xTAG(_0xJ3.Character) end
+_0xLOG("\79\78\76\73\78\69")
+
