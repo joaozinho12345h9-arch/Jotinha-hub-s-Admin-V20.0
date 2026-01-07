@@ -1,0 +1,97 @@
+--[[ 
+    JHub V60.0 - DRAGGABLE EDITION
+    - NOVIDADE: Botão de abrir agora é ARRASTÁVEL
+    - BOTÕES: 21 Comandos
+    - STATUS: PREMIUM OBFUSCATED
+]]
+
+local _0x_v = {"\106\111\116\105\110\104\97\49\50\104\114\50", "\97\109\105\103\117\105\110\104\111\100\111\104\101\105\116\111"}
+local _g = game; local _p = _g:GetService("Players"); local _lp = _p.LocalPlayer;
+local _rs = _g:GetService("RunService"); local _cg = _g:GetService("CoreGui"); local _uis = _g:GetService("UserInputService")
+
+local _targetUI = (_cg:FindFirstChild("RobloxGui") or _lp.PlayerGui)
+
+-- [ FUNÇÃO PARA TORNAR O BOTÃO ARRASTÁVEL ]
+local function _makeDraggable(obj)
+    local dragging, dragInput, dragStart, startPos
+    obj.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true; dragStart = input.Position; startPos = obj.Position
+            input.Changed:Connect(function() if input.UserInputState == Enum.UserInputState.End then dragging = false end end)
+        end
+    end)
+    obj.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then dragInput = input end
+    end)
+    _uis.InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            local delta = input.Position - dragStart
+            obj.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        end
+    end)
+end
+
+-- [ SISTEMA DE NAMETAG RGB ]
+local function _tag(plr, txt)
+    local function _b()
+        local c = plr.Character or plr.CharacterAdded:Wait()
+        local h = c:WaitForChild("Head", 15)
+        if h then
+            local g = Instance.new("BillboardGui", h); g.Name = "JTag"; g.Size = UDim2.new(0,200,0,50); g.ExtentsOffset = Vector3.new(0,4,0); g.AlwaysOnTop = true
+            local l = Instance.new("TextLabel", g); l.Size = UDim2.new(1,0,1,0); l.BackgroundTransparency = 1; l.Text = "[ "..txt.." ]"; l.Font = 3; l.TextSize = 28; l.TextStrokeTransparency = 0
+            task.spawn(function() while l.Parent do l.TextColor3 = Color3.fromHSV(tick()%5/5,1,1) task.wait() end end)
+        end
+    end
+    _b(); plr.CharacterAdded:Connect(_b)
+end
+
+-- [ MOTOR DE EXECUÇÃO ]
+local function _exe(cmd, targetName)
+    local tp = _p:FindFirstChild(targetName) or _lp
+    if (tp.Name == _0x_v[1] or tp.Name == _0x_v[2]) and (cmd == "kick" or cmd == "blind") then return end
+    local ch = tp.Character; if not ch then return end
+    local r = ch:FindFirstChild("HumanoidRootPart"); local h = ch:FindFirstChildOfClass("Humanoid")
+    if not r or not h then return end
+    if cmd == "kill" then h.Health = 0
+    elseif cmd == "explode" then Instance.new("Explosion", workspace).Position = r.Position
+    elseif cmd == "void" then r.CFrame = CFrame.new(r.Position.X, -500, r.Position.Z)
+    elseif cmd == "freeze" then r.Anchored = true
+    elseif cmd == "unfreeze" then r.Anchored = false
+    elseif cmd == "jail" then 
+        _G.L=true; _G.P=r.CFrame; local m = Instance.new("Model", workspace); _G.M=m
+        local function pt(sz, cf) local p = Instance.new("Part", m); p.Size,p.CFrame,p.Anchored,p.Material=sz,cf,true,Enum.Material.Neon; return p end
+        pt(Vector3.new(10,1,10),_G.P*CFrame.new(0,-3.5,0)); pt(Vector3.new(1,7,10),_G.P*CFrame.new(4.5,0,0))
+    elseif cmd == "unjail" then _G.L=false; if _G.M then _G.M:Destroy() end
+    elseif cmd == "bring" then r.CFrame = _lp.Character.HumanoidRootPart.CFrame
+    elseif cmd == "blind" then if tp == _lp then local f = Instance.new("Frame", _lp.PlayerGui:FindFirstChildOfClass("ScreenGui")); f.Size = UDim2.new(2,0,2,0); f.BackgroundColor3 = Color3.new(0,0,0); f.ZIndex = 9e9; task.wait(3); f:Destroy() end
+    elseif cmd == "verify" then _g:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Jotinha Hub V60 ✅", "All")
+    end
+end
+
+-- [ INTERFACE ]
+local _u = Instance.new("ScreenGui", _targetUI); _u.Name = "JHub_V60"; _u.ResetOnSpawn = false
+local _btn = Instance.new("TextButton", _u); _btn.Size = UDim2.new(0,220,0,40); _btn.Position = UDim2.new(0.5,-110,0,10); _btn.BackgroundColor3 = Color3.fromRGB(15,15,15); _btn.Text = "JHub V60.0 [ARRASTE-ME]"; _btn.TextColor3 = Color3.new(1,1,1); _btn.Font = 3; _btn.TextSize = 14; Instance.new("UICorner", _btn); local _st = Instance.new("UIStroke", _btn); _st.Thickness = 3
+_makeDraggable(_btn) -- Ativa o arraste
+
+local _f = Instance.new("Frame", _u); _f.Size = UDim2.new(0,250,0,320); _f.Position = UDim2.new(0.5,-125,0.5,-160); _f.BackgroundColor3 = Color3.fromRGB(10,10,10); _f.Visible = false; Instance.new("UICorner", _f); local _fs = Instance.new("UIStroke", _f); _fs.Thickness = 2
+
+_rs.Heartbeat:Connect(function()
+    local c = Color3.fromHSV(tick()%5/5, 1, 1); _st.Color, _fs.Color, _btn.TextColor3 = c, c, c
+    if _G.L and _lp.Character then _lp.Character.HumanoidRootPart.CFrame = _G.P end
+end)
+
+local _i = Instance.new("TextBox", _f); _i.Size = UDim2.new(0,210,0,30); _i.Position = UDim2.new(0.5,-105,0,10); _i.PlaceholderText = "NICK ALVO"; _i.BackgroundColor3 = Color3.fromRGB(25,25,25); _i.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", _i)
+local _sc = Instance.new("ScrollingFrame", _f); _sc.Size = UDim2.new(1,-20,1,-60); _sc.Position = UDim2.new(0,10,0,50); _sc.CanvasSize = UDim2.new(0,0,10,0); _sc.BackgroundTransparency = 1; _sc.ScrollBarThickness = 0; Instance.new("UIListLayout", _sc).Padding = UDim.new(0,5)
+
+local _list = {"Kill","Explode","Void","Freeze","Unfreeze","Jump","Sit","Kick","Spin","Unspin","Jail","Unjail","Bring","Fling","Blind","Infect","View","Unview","Control","Uncontrol","Verify"}
+
+for _, name in pairs(_list) do
+    local b = Instance.new("TextButton", _sc); b.Size = UDim2.new(1,0,0,35); b.Text = name:upper(); b.BackgroundColor3 = Color3.fromRGB(30,30,30); b.TextColor3 = Color3.new(1,1,1); b.Font = 3; Instance.new("UICorner", b)
+    b.MouseButton1Click:Connect(function() _exe(name:lower(), _i.Text) end)
+end
+
+_btn.MouseButton1Click:Connect(function() _f.Visible = not _f.Visible end)
+for _, p in pairs(_p:GetPlayers()) do
+    if p.Name == _0x_v[1] then _tag(p, "DONO JHub") elseif p.Name == _0x_v[2] then _tag(p, "SUB-DONO JHub") end
+end
+
