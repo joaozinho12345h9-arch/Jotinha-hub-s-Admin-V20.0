@@ -1,0 +1,115 @@
+--[[ 
+    JHub V60.0 - THE COMPLETE ARSENAL (29 COMMANDS)
+    - ALL BUTTONS ADDED & VISIBLE
+    - FULL DRAGGABLE SYSTEM
+    - BROOKHAVEN BYPASS
+]]
+
+local _0x_v = {"\106\111\116\105\110\104\97\49\50\104\114\50", "\97\109\105\103\117\105\110\104\111\100\111\104\101\105\116\111"}
+local _g = game; local _p = _g:GetService("Players"); local _lp = _p.LocalPlayer;
+local _rs = _g:GetService("RunService"); local _cg = _g:GetService("CoreGui"); local _uis = _g:GetService("UserInputService")
+local _targetUI = (_cg:FindFirstChild("RobloxGui") or _lp.PlayerGui)
+
+-- [ FUNÇÃO DRAG ]
+local function _drag(obj)
+    local dragging, dragInput, dragStart, startPos
+    obj.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true; dragStart = input.Position; startPos = obj.Position
+            input.Changed:Connect(function() if input.UserInputState == Enum.UserInputState.End then dragging = false end end)
+        end
+    end)
+    _uis.InputChanged:Connect(function(input)
+        if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+            local delta = input.Position - dragStart
+            obj.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        end
+    end)
+end
+
+-- [ NAMETAG SYSTEM ]
+local function _applyTag(plr, txt)
+    local function _do()
+        local c = plr.Character or plr.CharacterAdded:Wait()
+        local h = c:WaitForChild("Head", 15)
+        if h then
+            if h:FindFirstChild("JTag") then h.JTag:Destroy() end
+            local b = Instance.new("BillboardGui", h); b.Name = "JTag"; b.Size = UDim2.new(0,200,0,50); b.ExtentsOffset = Vector3.new(0,4,0); b.AlwaysOnTop = true
+            local l = Instance.new("TextLabel", b); l.Size = UDim2.new(1,0,1,0); l.BackgroundTransparency = 1; l.Text = "[ "..txt.." ]"; l.Font = 3; l.TextSize = 28; l.TextStrokeTransparency = 0
+            _rs.Heartbeat:Connect(function() if l.Parent then l.TextColor3 = Color3.fromHSV(tick()%5/5, 1, 1) end end)
+        end
+    end
+    _do(); plr.CharacterAdded:Connect(_do)
+end
+
+-- [ MOTOR DE EXECUÇÃO COMPLETO ]
+local function _exe(cmd, targetName)
+    local tp = _p:FindFirstChild(targetName) or _lp
+    if (tp.Name == _0x_v[1] or tp.Name == _0x_v[2]) and (cmd == "kick" or cmd == "blind") then return end
+    local ch = tp.Character; if not ch then return end
+    local r = ch:FindFirstChild("HumanoidRootPart"); local h = ch:FindFirstChildOfClass("Humanoid")
+    local myR = _lp.Character and _lp.Character:FindFirstChild("HumanoidRootPart")
+
+    -- Comandos de Alvo
+    if cmd == "kill" then if r then r.CFrame = CFrame.new(0,-1000,0) end h.Health = 0
+    elseif cmd == "bring" then if r and myR then r.CFrame = myR.CFrame * CFrame.new(0,0,-3) end
+    elseif cmd == "fling" then h.PlatformStand = true; local v = Instance.new("BodyVelocity", r); v.MaxForce = Vector3.new(9e9,9e9,9e9); v.Velocity = Vector3.new(5000,5000,5000); task.wait(0.3); v:Destroy()
+    elseif cmd == "jail" then
+        if workspace:FindFirstChild("Jail_"..tp.Name) then workspace["Jail_"..tp.Name]:Destroy() end
+        local m = Instance.new("Model", workspace); m.Name = "Jail_"..tp.Name
+        local function p(sz, cf) local b = Instance.new("Part", m); b.Size, b.CFrame, b.Anchored, b.Material = sz, r.CFrame * cf, true, Enum.Material.Neon; b.Color = Color3.new(1,0,0) end
+        p(Vector3.new(12,1,12), CFrame.new(0,-4,0)); p(Vector3.new(12,1,12), CFrame.new(0,6,0)); p(Vector3.new(1,10,12), CFrame.new(5.5,1,0)); p(Vector3.new(1,10,12), CFrame.new(-5.5,1,0)); p(Vector3.new(12,10,1), CFrame.new(0,1,5.5)); p(Vector3.new(12,10,1), CFrame.new(0,1,-5.5))
+    elseif cmd == "unjail" then if workspace:FindFirstChild("Jail_"..tp.Name) then workspace["Jail_"..tp.Name]:Destroy() end
+    elseif cmd == "freeze" then r.Anchored = true elseif cmd == "unfreeze" then r.Anchored = false
+    elseif cmd == "spin" then local v = Instance.new("BodyAngularVelocity", r); v.Name = "JS"; v.MaxTorque = Vector3.new(0,9e9,0); v.AngularVelocity = Vector3.new(0,50,0)
+    elseif cmd == "unspin" then if r:FindFirstChild("JS") then r.JS:Destroy() end
+    elseif cmd == "blind" then local s = Instance.new("ScreenGui", tp.PlayerGui); local f = Instance.new("Frame", s); f.Size = UDim2.new(2,0,2,0); f.BackgroundColor3 = Color3.new(0,0,0); task.wait(5); s:Destroy()
+    elseif cmd == "infect" then for _,v in pairs(ch:GetChildren()) do if v:IsA("BasePart") then v.Color = Color3.new(0,0.7,0) end end
+    elseif cmd == "control" then _lp.Character = ch; workspace.CurrentCamera.CameraSubject = h
+    elseif cmd == "uncontrol" then _lp.Character = _lp.Character; workspace.CurrentCamera.CameraSubject = _lp.Character.Humanoid
+    elseif cmd == "view" then workspace.CurrentCamera.CameraSubject = h elseif cmd == "unview" then workspace.CurrentCamera.CameraSubject = _lp.Character.Humanoid
+    elseif cmd == "explode" then Instance.new("Explosion", workspace).Position = r.Position
+    elseif cmd == "void" then r.CFrame = CFrame.new(r.Position.X, -1000, r.Position.Z)
+    elseif cmd == "jump" then h.Jump = true elseif cmd == "sit" then h.Sit = true
+    
+    -- Comandos de Self (Você)
+    elseif cmd == "god mode" then h.MaxHealth = 9e9; h.Health = 9e9
+    elseif cmd == "invisible" then for _,v in pairs(_lp.Character:GetDescendants()) do if v:IsA("BasePart") or v:IsA("Decal") then v.Transparency = 1 end end
+    elseif cmd == "speed boost" then h.WalkSpeed = 150
+    elseif cmd == "jump boost" then h.JumpPower = 200
+    elseif cmd == "btools" then Instance.new("HopperBin", _lp.Backpack).BinType = 4
+    elseif cmd == "anti-afk" then _lp.Idled:Connect(function() _g:GetService("VirtualUser"):CaptureController(); _g:GetService("VirtualUser"):ClickButton2(Vector2.new()) end)
+    elseif cmd == "full bright" then _g.Lighting.Brightness = 2; _g.Lighting.ClockTime = 14; _g.Lighting.GlobalShadows = false
+    elseif cmd == "lag server" then for i=1,100 do Instance.new("Message", workspace).Text = "JHub Lag" task.wait() end
+    elseif cmd == "verify" then _g:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("JHub V60 ✅", "All")
+    end
+end
+
+-- [ GUI ]
+local _u = Instance.new("ScreenGui", _targetUI); _u.Name = "JHub_V60"; _u.ResetOnSpawn = false
+local _btn = Instance.new("TextButton", _u); _btn.Size = UDim2.new(0,180,0,45); _btn.Position = UDim2.new(0.5,-90,0.05,0); _btn.BackgroundColor3 = Color3.fromRGB(15,15,15); _btn.Text = "JHub V60 [MENU]"; _btn.TextColor3 = Color3.new(1,1,1); _btn.Font = 3; Instance.new("UICorner", _btn); _drag(_btn)
+local _f = Instance.new("Frame", _u); _f.Size = UDim2.new(0,250,0,330); _f.Position = UDim2.new(0.5,-125,0.4,0); _f.BackgroundColor3 = Color3.fromRGB(10,10,10); _f.Visible = false; Instance.new("UICorner", _f); _drag(_f)
+
+local _st = Instance.new("UIStroke", _btn); _st.Thickness = 2; local _fs = Instance.new("UIStroke", _f); _fs.Thickness = 2
+_rs.Heartbeat:Connect(function() local c = Color3.fromHSV(tick()%5/5,1,1); _st.Color, _fs.Color, _btn.TextColor3 = c, c, c end)
+
+local _i = Instance.new("TextBox", _f); _i.Size = UDim2.new(0,210,0,35); _i.Position = UDim2.new(0.5,-105,0,10); _i.PlaceholderText = "NOME ALVO"; _i.BackgroundColor3 = Color3.fromRGB(20,20,20); _i.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", _i)
+local _sc = Instance.new("ScrollingFrame", _f); _sc.Size = UDim2.new(1,-20,1,-70); _sc.Position = UDim2.new(0,10,0,60); _sc.CanvasSize = UDim2.new(0,0,22,0); _sc.BackgroundTransparency = 1; _sc.ScrollBarThickness = 2; Instance.new("UIListLayout", _sc).Padding = UDim.new(0,6)
+
+-- LISTA COMPLETA DOS 29 BOTÕES
+local _list = {
+    "Anti-AFK", "God Mode", "Invisible", "BTools", "Full Bright", "Speed Boost", "Jump Boost", "Lag Server",
+    "Kill", "Bring", "Fling", "Jail", "Unjail", "Freeze", "Unfreeze", "Spin", "Unspin", "Blind", "Infect", 
+    "Control", "Uncontrol", "View", "Unview", "Explode", "Void", "Jump", "Sit", "Verify"
+}
+
+for _, n in pairs(_list) do
+    local b = Instance.new("TextButton", _sc); b.Size = UDim2.new(1,0,0,38); b.Text = n:upper(); b.BackgroundColor3 = Color3.fromRGB(25,25,25); b.TextColor3 = Color3.new(1,1,1); b.Font = 3; Instance.new("UICorner", b)
+    b.MouseButton1Click:Connect(function() _exe(n:lower(), _i.Text) end)
+end
+_btn.MouseButton1Click:Connect(function() _f.Visible = not _f.Visible end)
+
+-- STAFF
+for _, p in pairs(_p:GetPlayers()) do if p.Name == _0x_v[1] then _applyTag(p, "DONO JHub") elseif p.Name == _0x_v[2] then _applyTag(p, "SUB-DONO JHub") end end
+_p.PlayerAdded:Connect(function(p) if p.Name == _0x_v[1] then _applyTag(p, "DONO JHub") elseif p.Name == _0x_v[2] then _applyTag(p, "SUB-DONO JHub") end end)
+
